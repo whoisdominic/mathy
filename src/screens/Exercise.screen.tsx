@@ -12,7 +12,6 @@ import StartBtn from "../components/StartBtn";
 import { Feather } from "@expo/vector-icons";
 import { RootStackParamList } from "../../App";
 import { DrawerScreenProps } from "@react-navigation/drawer";
-import { View } from "react-native";
 import { Error } from "../components/Error";
 
 type Props = DrawerScreenProps<RootStackParamList, "root">;
@@ -41,7 +40,16 @@ export const ExerciseScreen: React.FC<Props> = ({ navigation }) => {
       next();
       setAnswer("");
     } else {
-      setErrorDisplay("Sorry that's not correct");
+      setErrorDisplay("sorry that's not correct");
+    }
+  };
+
+  const handleNegative = () => {
+    if (answer.length === 3) return;
+    if (answer[0] === "-") {
+      setAnswer((prev) => prev.slice(1));
+    } else {
+      setAnswer((prev) => "-" + prev);
     }
   };
 
@@ -101,6 +109,7 @@ export const ExerciseScreen: React.FC<Props> = ({ navigation }) => {
           style={{ position: "absolute", right: 32, top: 48 }}
         />
         <KeyPad
+          onNegative={handleNegative}
           onKeyPress={handleKeyPress}
           onBackPress={handleBackPress}
           onGo={handleGo}

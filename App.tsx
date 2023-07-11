@@ -2,6 +2,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { ExerciseScreen } from "./src/screens";
 import { NavigationContainer } from "@react-navigation/native";
 import { Drawer } from "./src/components";
+import { useConfig } from "./src/hooks";
 
 export type RootStackParamList = {
   root: undefined;
@@ -10,6 +11,8 @@ export type RootStackParamList = {
 const DrawerNav = createDrawerNavigator<RootStackParamList>();
 
 export default function App() {
+  useConfig();
+
   return (
     <NavigationContainer>
       <DrawerNav.Navigator

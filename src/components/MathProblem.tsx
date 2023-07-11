@@ -12,10 +12,10 @@ export const MathProblem: React.FC<{
 }> = ({ problem: { first, second, operator }, answer }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.problemText}>{first}</Text>
+      <Text style={styles.problemText}>{second}</Text>
       <View style={styles.row}>
         <Text style={styles.problemText}>{operator}</Text>
-        <Text style={styles.problemText}>{second}</Text>
+        <Text style={styles.problemText}>{first}</Text>
       </View>
       <Line />
       <Text style={styles.problemText}>{answer ?? "?"}</Text>

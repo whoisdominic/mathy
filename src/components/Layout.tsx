@@ -3,13 +3,11 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   Keyboard,
-  Dimensions,
+  useWindowDimensions,
 } from "react-native";
 import React from "react";
 import { useLessonStore } from "../state/useLessonStore";
 import { Colors } from "../constants";
-
-const { width, height } = Dimensions.get("window");
 
 export const Background: React.FC<{
   children?: React.ReactNode;
@@ -35,13 +33,41 @@ export const Background: React.FC<{
 export const Container: React.FC<{ children?: React.ReactNode }> = ({
   children,
 }) => {
-  return <View style={styles.container}>{children}</View>;
+  const { width, height } = useWindowDimensions();
+
+  return (
+    <View
+      style={[
+        styles.container,
+        {
+          width: width * 0.65,
+          height,
+        },
+      ]}
+    >
+      {children}
+    </View>
+  );
 };
 
 export const Aside: React.FC<{ children?: React.ReactNode }> = ({
   children,
 }) => {
-  return <View style={styles.aside}>{children}</View>;
+  const { width, height } = useWindowDimensions();
+
+  return (
+    <View
+      style={[
+        styles.aside,
+        {
+          height,
+          width: width * 0.35,
+        },
+      ]}
+    >
+      {children}
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -53,15 +79,12 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    width: width * 0.65,
-    height,
     alignItems: "center",
     justifyContent: "center",
   },
   aside: {
     backgroundColor: Colors.gray,
-    height,
-    width: width * 0.35,
+
     justifyContent: "flex-end",
     alignItems: "center",
     paddingBottom: 12,

@@ -3,16 +3,15 @@ import {
   View,
   Text,
   StyleSheet,
-  Dimensions,
+  useWindowDimensions,
 } from "react-native";
-
-const { width, height } = Dimensions.get("window");
 
 export const KeyPad: React.FC<{
   onKeyPress: (value: number) => void;
   onBackPress: () => void;
   onGo: () => void;
-}> = ({ onKeyPress, onBackPress, onGo }) => {
+  onNegative: () => void;
+}> = ({ onKeyPress, onBackPress, onGo, onNegative }) => {
   const keys = [
     { value: 1, label: "1", onPress: () => onKeyPress(1) },
     { value: 2, label: "2", onPress: () => onKeyPress(2) },
@@ -28,8 +27,10 @@ export const KeyPad: React.FC<{
     { value: "enter", label: "go", onPress: onGo },
   ];
 
+  const { width } = useWindowDimensions();
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { width: width * 0.35 }]}>
       {keys.map((key) => (
         <Key
           key={key.value}
@@ -38,6 +39,7 @@ export const KeyPad: React.FC<{
           onPress={key.onPress}
         />
       ))}
+      <Negative onPress={onNegative} />
     </View>
   );
 };
@@ -46,28 +48,58 @@ const Key: React.FC<{
   value: string | number;
   label: string;
   onPress: () => void;
-}> = ({ label, onPress }) => (
-  <TouchableOpacity activeOpacity={0.5} onPress={onPress}>
-    <View style={styles.keyContainer}>
-      <Text style={styles.keyText}>{label}</Text>
-    </View>
-  </TouchableOpacity>
-);
+}> = ({ label, onPress }) => {
+  const { width } = useWindowDimensions();
+  return (
+    <TouchableOpacity activeOpacity={0.5} onPress={onPress}>
+      <View
+        style={[
+          styles.keyContainer,
+          {
+            width: (width * 0.35) / 3,
+          },
+        ]}
+      >
+        <Text style={styles.keyText}>{label}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+};
+
+const Negative: React.FC<{
+  onPress: () => void;
+}> = ({ onPress }) => {
+  const { width } = useWindowDimensions();
+
+  return (
+    <TouchableOpacity activeOpacity={0.5} onPress={onPress}>
+      <View
+        style={[
+          {
+            width: width * 0.35,
+            alignSelf: "center",
+            justifyContent: "center",
+            alignItems: "center",
+            paddingVertical: 12,
+          },
+        ]}
+      >
+        <Text style={styles.keyText}>negative</Text>
+      </View>
+    </TouchableOpacity>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
-    width: width * 0.35,
-    height: height * 0.4,
     flexDirection: "row",
     flexWrap: "wrap",
     borderTopLeftRadius: 10,
-    overflow: "hidden",
   },
   keyContainer: {
     flex: 0,
     alignItems: "center",
     justifyContent: "center",
-    width: (width * 0.35) / 3,
     height: 100,
     overflow: "hidden",
     padding: 24,

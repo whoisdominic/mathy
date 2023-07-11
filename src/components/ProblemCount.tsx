@@ -10,7 +10,7 @@ export function ProblemCount() {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>
-        Remaining: {questions.length - activeQuestion}
+        remaining: {questions.length - activeQuestion}
       </Text>
       <TouchableOpacity onPress={quit}>
         <Text style={styles.text}>😰</Text>
