@@ -59,12 +59,12 @@ export const ExerciseScreen: React.FC<Props> = ({ navigation }) => {
     switch (questions[activeQuestion].operator) {
       case "+":
         return guess ===
-          questions[activeQuestion].first + questions[activeQuestion].second
+          questions[activeQuestion].second + questions[activeQuestion].first
           ? true
           : false;
       case "-":
         return guess ===
-          questions[activeQuestion].first - questions[activeQuestion].second
+          questions[activeQuestion].second - questions[activeQuestion].first
           ? true
           : false;
       // case "*":

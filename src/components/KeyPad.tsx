@@ -56,7 +56,7 @@ const Key: React.FC<{
         style={[
           styles.keyContainer,
           {
-            width: (width * 0.35) / 3,
+            width: (width * 0.33) / 3,
           },
         ]}
       >
@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     borderTopLeftRadius: 10,
+    justifyContent: "center",
   },
   keyContainer: {
     flex: 0,
