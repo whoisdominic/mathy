@@ -18,7 +18,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   assetBundlePatterns: ["**/*"],
   ios: {
-    buildNumber,
+    buildNumber: buildNumber,
     supportsTablet: true,
     requireFullScreen: true,
     bundleIdentifier: "com.tokul.mathy",
